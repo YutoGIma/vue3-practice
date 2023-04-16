@@ -26,7 +26,7 @@ export default {
 
         onMounted(() => {
             axios
-                .get('/api/users')
+                .get('http://localhost:3003/users')
                 .then((response) => console.log(response))
                 .catch((error) => console.log(error, error.message));
         });
