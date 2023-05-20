@@ -13,8 +13,7 @@
 </template>
 
 <script>
-import {reactive, onMounted} from "vue";
-import axios from 'axios'
+import {reactive} from "vue";
 export default {
     setup() {
         const state = reactive({
@@ -23,13 +22,6 @@ export default {
             newFruit: "",
             count: 0,
         })
-
-        onMounted(() => {
-            axios
-                .get('http://localhost:3003/users')
-                .then((response) => console.log(response.data))
-                .catch((error) => console.log(error, error.message));
-        });
 
         function addOriginFruit(){
             state.originFruits.push(state.newFruit)
