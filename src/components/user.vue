@@ -7,6 +7,11 @@
             <textarea v-model="state.createUser.explanation" cols="0" rows="4"></textarea>
             <input type="button" @click=" createUser() " value="送信">
         </div>
+        <div class="user-create-errors">
+            <P v-if="state.errors?.name">Name Error : {{ state.errors.name }}</P>
+            <P v-if="state.errors?.email">Email Error : {{ state.errors.email }}</P>
+            <P v-if="state.errors?.password">Password Error : {{ state.errors.password }}</P>
+        </div>
         <div class="user-list-con">
             <div v-for="(user, index) of state.userList" :key="index" class="user-list flex">
                 <p>{{ user.id }}</p>
@@ -29,7 +34,8 @@ export default {
                 email: "",
                 password: "",
                 explanation: "",
-            }
+            },
+            errors: {}
         })
 
         onMounted(() => {
@@ -38,14 +44,17 @@ export default {
                 .then((response) => {
                     state.userList = response.data
                 })
-                .catch((error) => console.log(error, error.message))
+                .catch((error) => console.log(error, error.data.message))
         })
 
         function createUser(){
             axios
             .post('http://localhost:3003/users', state.createUser)
             .then((response) => console.log(response.data))
-            .catch((error) => console.log(error, error.message))
+            .catch((error) => {
+                console.log(error)
+                state.errors = error.response.data.errors
+            })
         }
 
         return {
