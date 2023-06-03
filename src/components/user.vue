@@ -1,16 +1,7 @@
 <template>
     <div class="user-con">
-        <div class="user-create flex">
-            <input type="text" v-model="newUser.name">
-            <input type="text" v-model="newUser.email">
-            <input type="text" v-model="newUser.password">
-            <textarea v-model="newUser.explanation" cols="0" rows="4"></textarea>
-            <button @click=" createUser() ">送信</button>
-        </div>
-        <div class="user-create-errors">
-            <P v-if="errors?.name">Name Error : {{ errors.name }}</P>
-            <P v-if="errors?.email">Email Error : {{ errors.email }}</P>
-            <P v-if="errors?.password">Password Error : {{ errors.password }}</P>
+        <div class="flex">
+            <button @click="toCreat()">新規登録</button>
         </div>
         <div class="user-list-con">
             <div v-for="(user, index) of userList" :key="index" class="user-list flex">
@@ -25,16 +16,10 @@
 <script>
 import {ref, onMounted} from "vue"
 import axios from "axios"
+import { useRouter } from 'vue-router'
 export default {
     setup() {
         const userList = ref([])
-        const newUser = ref({
-            name: "",
-            email: "",
-            password: "",
-            explanation: ""
-        })
-        const errors = ref({})
 
         onMounted(async () => {
             try {
@@ -45,21 +30,15 @@ export default {
             }
         })
 
-        async function createUser(){
-            try {
-                const response = await axios.post('http://localhost:3003/users', newUser.value)
-                console.log(response.data)
-            } catch (error) {
-                console.log(error)
-                errors.value = error.response.data.errors
-            }
+        const router = useRouter()
+
+        function toCreat() {
+            router.push('/user/create')
         }
 
         return {
             userList,
-            newUser,
-            errors,
-            createUser,
+            toCreat
         }
     },
 }
