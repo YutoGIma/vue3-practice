@@ -20,6 +20,7 @@ import { useRouter } from 'vue-router'
 export default {
     setup() {
         const userList = ref([])
+        const router = useRouter()
 
         onMounted(async () => {
             try {
@@ -30,7 +31,6 @@ export default {
             }
         })
 
-        const router = useRouter()
 
         function toCreat() {
             router.push('/user/create')

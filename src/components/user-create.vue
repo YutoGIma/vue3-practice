@@ -17,6 +17,7 @@
                 <label for="">その他</label>
                 <textarea v-model="newUser.explanation" cols="0" rows="4"></textarea>
             </div>
+            <button @click=" retrunList() ">戻る</button>
             <button @click=" createUser() ">送信</button>
         </div>
         <div class="user-create-errors">
@@ -30,6 +31,7 @@
 <script>
 import {ref} from "vue"
 import axios from "axios"
+import { useRouter } from 'vue-router'
 export default {
     setup() {
         const newUser = ref({
@@ -39,21 +41,29 @@ export default {
             explanation: ""
         })
         const errors = ref({})
+        const router = useRouter()
 
         async function createUser(){
             try {
                 const response = await axios.post('http://localhost:3003/users', newUser.value)
                 console.log(response.data)
+                router.push('/user')
+
             } catch (error) {
                 console.log(error)
                 errors.value = error.response.data.errors
             }
         }
 
+        function retrunList(){
+            router.push('/user')
+        }
+
         return {
             newUser,
             errors,
             createUser,
+            retrunList
         }
     }
 }
