@@ -3,6 +3,7 @@ import Home from './components/HelloWorld.vue'
 import Chat from './components/Chat.vue'
 import User from './components/user.vue'
 import UserCreate from './components/user-create.vue'
+import UserDetail from './components/user-detail.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/user/create',
     name: "UserCreate",
     component: UserCreate
+  },
+  {
+    path: '/user/:id',
+    name: "UserDetail",
+    component: UserDetail
   },
   {
     path: '/about',

@@ -8,6 +8,7 @@
                 <p>{{ user.id }}</p>
                 <p>{{ user.name }}</p>
                 <p>{{ user.email }}</p>
+                <button @click="toDetail(user.id)">詳細</button>
             </div>
         </div>
     </div>
@@ -36,9 +37,14 @@ export default {
             router.push('/user/create')
         }
 
+        function toDetail(id) {
+            router.push(`/user/${id}`)
+        }
+
         return {
             userList,
-            toCreat
+            toCreat,
+            toDetail
         }
     },
 }
