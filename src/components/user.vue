@@ -7,7 +7,6 @@
             <div v-for="(user, index) of userList" :key="index" class="user-list flex">
                 <p>{{ user.id }}</p>
                 <p>{{ user.name }}</p>
-                <p>{{ user.email }}</p>
                 <button @click="toDetail(user.id)">詳細</button>
             </div>
         </div>
